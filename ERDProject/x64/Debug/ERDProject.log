@@ -1,0 +1,2 @@
+﻿main.obj : error LNK2019: unresolved external symbol __imp_sodium_init referenced in function main
+D:\ERD\libsodium\ERDProject\x64\Debug\ERDProject.exe : fatal error LNK1120: 1 unresolved externals
