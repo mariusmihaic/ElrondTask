@@ -10,11 +10,15 @@ namespace ih
   class ArgHandler
   {
   public:
+    // TODO: Add here an error code as well for return or as input param for argHandler
     enum RequestedCmd
     {
       invalid,
       help,
-      loadPemFile
+      loadPemFile,
+      createTransactionWithData,
+      createTransactionNoData,
+      signTransaction
     };
 
     explicit ArgHandler(int const& argc, char* const argv[])
@@ -38,9 +42,22 @@ namespace ih
 
     int argCount() const;
 
-    bool isSubCommandGroup(std::string subCommandGroup) const;
+    bool isCommandGroup(std::string const arg) const;
 
-    bool isCommandGroup(std::string arg) const;
+    bool isSubCommandGroup(std::string const subCommandGroup) const;
+
+    template <typename T>
+    bool isArgumentValid(unsigned int const idx, std::string const arg) const;
+
+    // Generic template function to check for user value input.
+    // Expects input to be an unsigned long int.
+    template<typename T>
+    bool isUserInputValid(std::string arg) const;
+
+    // Specialization template function to check for user value input.
+    // Expects input to be a non-empty string.
+    template<>
+    bool isUserInputValid<std::string>(std::string arg) const;
 
     void showSubGroupAvailableCmds(std::string cmdGroup) const;
 

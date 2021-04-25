@@ -16,13 +16,22 @@ int main(int argc, char* argv[])
     argHandler.showInfo();
   }
   case ih::ArgHandler::loadPemFile:
-    {
+  {
     ih::PemFileHandler pemHandler(argHandler.getPemFilePath());
     if (pemHandler.isFileValid())
     {
     }
     break;
-    }
+  }
+  case ih::ArgHandler::createTransactionNoData:
+  {
+    std::cerr << "Create trans no data";
+    break;
+  }
+  case ih::ArgHandler::createTransactionWithData:
+  {
+    break;
+  }
   default:
   {
     argHandler.showInfo();

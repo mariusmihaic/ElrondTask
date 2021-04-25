@@ -119,7 +119,9 @@
     <ClInclude Include="bech32.h" />
     <ClInclude Include="bites.h" />
     <ClInclude Include="ext.h" />
+    <ClInclude Include="fifo_map.hpp" />
     <ClInclude Include="hex.h" />
+    <ClInclude Include="json.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base64.cpp" />

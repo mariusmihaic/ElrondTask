@@ -39,7 +39,7 @@ d:\erd\erdproject\packages\microsoft.googletest.v140.windesktop.msvcstl.static.r
 d:\erd\erdproject\packages\microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\include\gtest\gtest-printers.h(882): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning.
   c:\legacyapp\microsoft visual studio\vc\tools\msvc\14.16.27023\include\tuple(1333): note: see declaration of 'std::tr1'
 d:\erd\erdproject\packages\microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\include\gtest\gtest-printers.h(875): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning.
-  c:\legacyapp\microsoft visual studio\vc\tools\msvc\14.16.27023\include\tuple(1333): note: see declaration of 'std::tr1'
+  c:\legacyapp\microsoft visual studio\vc\tools\msvc\14.16.27023\include\unordered_map(1065): note: see declaration of 'std::tr1'
   d:\erd\erdproject\packages\microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\include\gtest\gtest-printers.h(961): note: see reference to class template instantiation 'testing::internal::TuplePolicy<Tuple>' being compiled
           with
           [

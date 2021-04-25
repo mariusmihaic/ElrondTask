@@ -1,4 +1,6 @@
 ﻿  arghandler.cpp
+d:\erd\erdproject\inputhandler\arghandler\arghandler.cpp(47): warning C4018: '<=': signed/unsigned mismatch
+  d:\erd\erdproject\inputhandler\arghandler\arghandler.cpp(84): note: see reference to function template instantiation 'bool ih::ArgHandler::isArgumentValid<uint64_t>(const unsigned int,const std::string) const' being compiled
   pemhandler.cpp
   Generating Code...
   InputHandler.vcxproj -> D:\ERD\ERDProject\Debug\InputHandler.lib

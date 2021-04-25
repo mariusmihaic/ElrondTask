@@ -1,6 +1,5 @@
 #include "pch.h"
 
-
 TEST(Base64, decode)
 {
   std::string keytotal = "MWY0ZGQ4YjdkMThiNWQwNzg1YzlkMDgwMmVjMTRkNTUzZGJhMzU2ODEyYjg1YzdlMzQxNDM3MzM4ODQ3MjAxMDg0YTE2OGNkNGQ3ZDg2MDg4NDg2MzJkMDk3ODNkMjhhZTlhODIzOTAwNzc5Mjk1NjY3NTdlMjU1OTZmZTk2NDc";
@@ -38,5 +37,53 @@ TEST(Hex, toBytes)
   std::vector<char> bytes = util::hexToBytes(textHex);
 
   EXPECT_EQ(bytes, expectedBytes);
+}
+
+
+TEST(ddd, aaa)
+{
+
+
+  //std::string argument = "\"da\"";
+  //int x = argument.size();
+  //if ((argument.at(0) == '"') && (argument.at(argument.size() - 1) == '"'))
+  //{
+  //  int x = 1;
+  //}
+  std::string userArg = "opt=3";
+  std::string arg = "opt=";
+
+  bool const isCmdValid = (userArg.substr(0, arg.size()) == arg) ? (true) : (false);
+  std::string userInput = userArg.substr(arg.size(), userArg.size());
+  int x = 1;
+}
+
+TEST(dsa, dsa)
+{
+  //nlohmann::json j;
+  nlohmann::ordered_json j;
+  j["pi"] = 3.141;
+
+  // add a Boolean that is stored as bool
+  j["happy"] = true;
+
+  // add a string that is stored as std::string
+  j["name"] = "Niels";
+
+  // add another null object by passing nullptr
+  j["nothing"] = nullptr;
+
+  // add an object inside the object
+  j["answer"]["everything"] = 42;
+
+
+
+
+ // auto j3 = nlohmann::json::object({ {"pi" , 3.14}, {"happy",true}, {"name", "Niels"}, {"currency", "USD"}, {"value", 42.99} });
+
+  std::string s = j.dump();
+  std::cerr << s;
+  //s.erase(std::remove(s.begin(), s.end(), '\\'), s.end());
+
 }
 

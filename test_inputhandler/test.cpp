@@ -42,7 +42,7 @@ TEST(ArgHandler, getRequestedCmd_pem_load_someFile)
   char* argv[argc];
   argv[0] = "ERDProject.exe";
   argv[1] = "pem";
-  argv[2] = "-load";
+  argv[2] = "load";
   argv[3] = "someFile";
 
   ih::ArgHandler argHandler(argc, argv);
@@ -75,6 +75,45 @@ TEST(ArgHandler, getRequestedCmd_pem_withoutSubArgument)
   EXPECT_EQ(argHandler.getRequestedCmd(), ih::ArgHandler::invalid);
 }
 
+TEST(ArgHandler, getRequestedCmd_transaction_new_noData)
+{
+  int const argc = 9;
+  char* argv[argc];
+  argv[0] = "ERDProject.exe";
+  argv[1] = "transaction";
+  argv[2] = "new";
+  argv[3] = "--nonce=3";
+  argv[4] = "--value=\"31\"";
+  argv[5] = "--receiver=\"da\"";
+  argv[6] = "--gas-price=31";
+  argv[7] = "--gas-limit=31";
+  argv[8] = "--outfile=\"dd\"";
+
+  ih::ArgHandler argHandler(argc, argv);
+
+  EXPECT_EQ(argHandler.getRequestedCmd(), ih::ArgHandler::createTransactionNoData);
+}
+
+TEST(ArgHandler, getRequestedCmd_transaction_new_withData)
+{
+  int const argc = 10;
+  char* argv[argc];
+  argv[0] = "ERDProject.exe";
+  argv[1] = "transaction";
+  argv[2] = "new";
+  argv[3] = "--nonce=3";
+  argv[4] = "--value=\"31\"";
+  argv[5] = "--receiver=\"da\"";
+  argv[6] = "--gas-price=31";
+  argv[7] = "--gas-limit=31";
+  argv[8] = "--outfile=\"dd\"";
+  argv[9] = "--data=\"dd\"";
+
+  ih::ArgHandler argHandler(argc, argv);
+
+  EXPECT_EQ(argHandler.getRequestedCmd(), ih::ArgHandler::createTransactionWithData);
+}
+
 TEST(ArgHandler, getPemFilePath_someFile)
 {
   int const argc = 4;
@@ -103,6 +142,7 @@ TEST(ArgHandler, getPemFilePath_invalidArguments_emptyPath)
 
   EXPECT_EQ(argHandler.getPemFilePath(), "");
 }
+
 
 TEST(PemFileReader, isPemFileValid_validFile)
 {
@@ -162,3 +202,4 @@ TEST(PemFileReader, getSegwitAddress)
 
   EXPECT_EQ(pemAddress, expectedAdr);
 }
+

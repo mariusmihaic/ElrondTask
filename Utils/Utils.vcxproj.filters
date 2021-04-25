@@ -22,6 +22,9 @@
     <Filter Include="conversion">
       <UniqueIdentifier>{2fb15655-8784-4198-b872-e4ae04101982}</UniqueIdentifier>
     </Filter>
+    <Filter Include="json">
+      <UniqueIdentifier>{9aa9ee2c-e393-4dd3-b099-647acac0a7f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base64.h">
@@ -38,6 +41,12 @@
     </ClInclude>
     <ClInclude Include="bites.h">
       <Filter>conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="fifo_map.hpp">
+      <Filter>json</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
