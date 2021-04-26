@@ -25,6 +25,9 @@
     <Filter Include="json">
       <UniqueIdentifier>{9aa9ee2c-e393-4dd3-b099-647acac0a7f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="params">
+      <UniqueIdentifier>{5e600b70-0e60-4e5f-a995-843b5a615126}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base64.h">
@@ -48,6 +51,12 @@
     <ClInclude Include="fifo_map.hpp">
       <Filter>json</Filter>
     </ClInclude>
+    <ClInclude Include="params.h">
+      <Filter>params</Filter>
+    </ClInclude>
+    <ClInclude Include="stringtochar.h">
+      <Filter>conversion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base64.cpp">
@@ -57,6 +66,9 @@
       <Filter>bech32</Filter>
     </ClCompile>
     <ClCompile Include="bites.cpp">
+      <Filter>conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="hex.cpp">
       <Filter>conversion</Filter>
     </ClCompile>
   </ItemGroup>

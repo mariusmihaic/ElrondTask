@@ -40,21 +40,33 @@ namespace ih
   }
 
   template <typename T>
-  bool ArgHandler::isArgumentValid(unsigned int const idx, std::string const arg) const
+  bool ArgHandler::checkAndSetUserInput(unsigned int const argIdx, std::string const arg,
+                                        std::map<uint32_t, std::string>& userInputs, uint32_t valIdx,
+                                        errorCode errCode)
   {
     // If user didn't provide enough arguments OR
     // size(user arg) <= size(required arg)
-    if (argCount() <= idx) return false;
-    if (m_arguments[idx].size() <= arg.size()) return false;
+    if (argCount() <= argIdx) return false;
+    if (m_arguments[argIdx].size() <= arg.size()) return false;
 
     bool ret = false;
-    std::string const userArg = m_arguments[idx];
-    bool const isCmdValid = (userArg.substr(0, arg.size()) == arg) ? (true) : (false);
+
+    std::string const userArg = m_arguments[argIdx];
+    std::string const userCmd = userArg.substr(0, arg.size());
+    bool const isCmdValid = (userCmd == arg) ? (true) : (false);
 
     if (isCmdValid)
     {
-      std::string userInput = userArg.substr(arg.size(), userArg.size());
-      ret = isUserInputValid<T>(userInput);
+      std::string const userInput = userArg.substr(arg.size(), userArg.size());
+      if (isUserInputValid<T>(userInput))
+      {
+        userInputs[valIdx] = userInput;
+        ret = true;
+      }
+      else
+      {
+        m_errCode &= errCode;
+      }
     }
 
     return ret;
@@ -67,39 +79,43 @@ namespace ih
     return ret;
   }
 
-  ArgHandler::RequestedCmd ArgHandler::getRequestedCmd() const
+  RequestedCmd ArgHandler::getRequestedCmd()
   {
-    RequestedCmd ret = invalid;
-    // TODO: No magic numbers
+    m_errCode = ERROR_NONE;
+    RequestType reqType = invalid;
+    std::map<uint32_t, std::string> userInputs;
 
+    // TODO: No magic numbers
     if ((argCount() == 1) && isCommandGroup("help"))
     {
-      ret = help;
+      reqType = help;
     }
-    else if ((argCount() == 3) && isCommandGroup("pem") && isSubCommandGroup("load"))
+    else if ((argCount() == 3) && isCommandGroup("pem") && isSubCommandGroup("load") &&
+             (checkAndSetUserInput<std::string>(2U, "--file=", userInputs, ARGS_PEM_IDX_FILE, ERROR_PEM_INPUT_FILE)))
     {
-      ret = loadPemFile;
+      reqType = loadPemFile;
     }
-    else if (((argCount() == 9) || (argCount() == 8)) && isCommandGroup("transaction") && isSubCommandGroup("new") &&
-      isArgumentValid<uint64_t>(2U, "--nonce=") &&
-      isArgumentValid<std::string>(3U, "--value=") &&
-      isArgumentValid<std::string>(4U, "--receiver=") &&
-      isArgumentValid<uint64_t>(5U, "--gas-price=") &&
-      isArgumentValid<uint64_t>(6U, "--gas-limit=") &&
-      isArgumentValid<std::string>(7U, "--outfile="))
+    else if (((argCount() == 10) || (argCount() == 9)) && isCommandGroup("transaction") && isSubCommandGroup("new") &&
+      checkAndSetUserInput<uint64_t>(2U, "--nonce=", userInputs, ARGS_TX_IDX_NONCE, ERROR_NONCE) &&
+      checkAndSetUserInput<std::string>(3U, "--value=", userInputs, ARGS_TX_IDX_VALUE, ERROR_VALUE) &&
+      checkAndSetUserInput<std::string>(4U, "--receiver=", userInputs, ARGS_TX_IDX_RECEIVER, ERROR_RECEIVER) &&
+      checkAndSetUserInput<uint64_t>(5U, "--gas-price=", userInputs, ARGS_TX_IDX_GAS_PRICE, ERROR_GAS_PRICE) &&
+      checkAndSetUserInput<uint64_t>(6U, "--gas-limit=", userInputs, ARGS_TX_IDX_GAS_LIMIT, ERROR_GAS_LIMIT) &&
+      checkAndSetUserInput<std::string>(7U, "--pem=", userInputs, ARGS_TX_IDX_PEM_INPUT_FILE, ERROR_PEM_INPUT_FILE) &&
+      checkAndSetUserInput<std::string>(8U, "--outfile=", userInputs, ARGS_TX_IDX_JSON_OUT_FILE, ERROR_JSON_OUT_FILE))
     {
-      if (argCount() == 8)
+      if (argCount() == 9)
       {
-        ret = createTransactionNoData;
+        reqType = createTransactionNoData;
       }
-      else if ((argCount() == 9) && isArgumentValid<std::string>(8U, "--data="))
+      else if ((argCount() == 10) &&
+        checkAndSetUserInput<std::string>(8U, "--data=", userInputs, ARGS_TX_IDX_DATA, ERROR_DATA))
       {
-        ret = createTransactionWithData;
+        reqType = createTransactionWithData;
       }
     }
 
-
-    return ret;
+    return RequestedCmd(userInputs, reqType ,m_errCode);
   }
 
   int ArgHandler::argCount() const
@@ -147,6 +163,11 @@ namespace ih
         std::cerr << cmd << " ";
       }
     }
+  }
+
+  void ArgHandler::reportError(errorCode const err) const
+  {
+    std::cerr << errors.at(err);
   }
 
   void ArgHandler::showInfo() const

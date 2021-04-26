@@ -1,5 +1,2 @@
-﻿  base64.cpp
-  bech32.cpp
-  bites.cpp
-  Generating Code...
+﻿  hex.cpp
   Utils.vcxproj -> D:\ERD\ERDProject\Debug\Utils.lib

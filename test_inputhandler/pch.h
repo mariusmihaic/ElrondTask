@@ -7,6 +7,7 @@
 
 #include "gtest/gtest.h"
 #include "../InputHandler/ext.h"
+#include "../Utils/ext.h"
 #include <sodium.h>
 
 

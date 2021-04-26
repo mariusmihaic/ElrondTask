@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -76,6 +76,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,11 +118,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ArgHandler\arghandler.h" />
+    <ClInclude Include="common.h" />
     <ClInclude Include="ext.h" />
+    <ClInclude Include="IFileHandler\IFileHandler.h" />
+    <ClInclude Include="JsonHandler\jsonhandler.h" />
     <ClInclude Include="PemHandler\pemhandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArgHandler\arghandler.cpp" />
+    <ClCompile Include="IFileHandler\IFileHandler.cpp" />
+    <ClCompile Include="JsonHandler\jsonhandler.cpp" />
     <ClCompile Include="PemHandler\pemhandler.cpp" />
   </ItemGroup>
   <ItemGroup>

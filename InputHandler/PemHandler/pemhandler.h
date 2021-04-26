@@ -3,21 +3,22 @@
 
 #include <string>
 #include <vector>
+#include "../IFileHandler/IFileHandler.h"
 
 namespace ih
 {
-  class PemFileHandler
+  class PemFileHandler : public IFileHandler
   {
     std::string const hrp = "erd";
 
   public:
     explicit PemFileHandler(std::string const& path):
-      m_filePath(path)
+      IFileHandler(path)
     {
       m_fileContent = getFileContent();
     }
 
-    bool isFileValid() const;
+    bool isFileValid() override;
 
     void getSeed(unsigned char* seed) const;
 
@@ -29,17 +30,11 @@ namespace ih
 
   private:
 
-    bool isFileExtensionValid() const;
-
     std::string getFileContent() const;
-
-    std::string getFileExtension() const;
 
     std::vector<char> getKeyBytesFromFile() const;
 
-
     std::string m_fileContent;
-    std::string m_filePath;
   };
 }
 

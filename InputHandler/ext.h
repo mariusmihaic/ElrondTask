@@ -3,5 +3,6 @@
 
 #include "ArgHandler/arghandler.h"
 #include "PemHandler/pemhandler.h"
+#include "JsonHandler/jsonhandler.h"
 
 #endif

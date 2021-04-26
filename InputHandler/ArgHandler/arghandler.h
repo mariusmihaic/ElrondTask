@@ -4,24 +4,51 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "../../Utils/params.h"
 
 namespace ih
 {
+  // TODO: Add here an error code as well for return or as input param for argHandler
+  enum RequestType
+  {
+    invalid,
+    help,
+    loadPemFile,
+    createTransactionWithData,
+    createTransactionNoData,
+  };
+
+  class RequestedCmd
+  {
+  public:
+    RequestedCmd(std::map<uint32_t,std::string> const userInputs,
+                 RequestType const reqType, errorCode const errCode) :
+      m_userInputs(userInputs), m_requestType(reqType), m_errCode(errCode){}
+
+    const std::map<uint32_t, std::string>& getUserInputs() const
+    {
+      return m_userInputs;
+    }
+    const RequestType& getRequestType() const
+    {
+      return m_requestType;
+    }
+    const errorCode& getErrorCode() const
+    {
+      return m_errCode;
+    }
+
+  private:
+    std::map<uint32_t, std::string> const m_userInputs;
+    RequestType const m_requestType;
+    errorCode const m_errCode;
+  };
+
   class ArgHandler
   {
   public:
-    // TODO: Add here an error code as well for return or as input param for argHandler
-    enum RequestedCmd
-    {
-      invalid,
-      help,
-      loadPemFile,
-      createTransactionWithData,
-      createTransactionNoData,
-      signTransaction
-    };
 
-    explicit ArgHandler(int const& argc, char* const argv[])
+    explicit ArgHandler(int const& argc, char* const argv[]) : m_errCode(ERROR_NONE)
     {
       if (argc > 1)
       {
@@ -32,9 +59,11 @@ namespace ih
       }
     }
 
-    RequestedCmd getRequestedCmd() const;
+    RequestedCmd getRequestedCmd();
 
     std::string getPemFilePath() const;
+
+    void reportError(errorCode const err) const;
 
     void showInfo() const;
 
@@ -47,7 +76,9 @@ namespace ih
     bool isSubCommandGroup(std::string const subCommandGroup) const;
 
     template <typename T>
-    bool isArgumentValid(unsigned int const idx, std::string const arg) const;
+    bool checkAndSetUserInput(unsigned int const argIdx,
+                              std::string const arg, std::map<uint32_t,std::string>& userInputs,
+                              uint32_t valIdx, errorCode errCode);
 
     // Generic template function to check for user value input.
     // Expects input to be an unsigned long int.
@@ -65,6 +96,7 @@ namespace ih
 
     typedef std::map<std::string, std::vector<std::string>> commandGroupMap;
     std::vector <std::string> m_arguments;
+    errorCode m_errCode;
     static commandGroupMap const m_commandGroupMap;
   };
 }

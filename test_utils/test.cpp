@@ -60,8 +60,27 @@ TEST(ddd, aaa)
 
 TEST(dsa, dsa)
 {
+  std::string striing = "c321aca3d4-%#1";
+  int lengthh = striing.length();
+  int sizee = striing.size();
+
+
+  std::string tx = "{\"nonce\":7,\"value\":\"10000000000000000000\",\"receiver\":\"erd1cux02zersde0l7hhklzhywcxk4u9n4py5tdxyx7vrvhnza2r4gmq4vw35r\",\"sender\":\"erd1l453hd0gt5gzdp7czpuall8ggt2dcv5zwmfdf3sd3lguxseux2fsmsgldz\",\"gasPrice\":1000000000,\"gasLimit\":70000,\"data\":\"Zm9yIHRoZSBib29r\",\"chainID\":\"1\",\"version\":1}";
+
+  try
+  {
+    int x = std::stoi("3dsa");
+    throw 1;
+  }
+  catch(int e)
+  {
+    int x = 1;
+  }
   //nlohmann::json j;
-  nlohmann::ordered_json j;
+  std::map<uint32_t, std::string> userInputs;
+  userInputs[0] = "dsa";
+  nlohmann::ordered_json j(userInputs);
+  std::string json_dup = j.dump();
   j["pi"] = 3.141;
 
   // add a Boolean that is stored as bool
@@ -87,3 +106,8 @@ TEST(dsa, dsa)
 
 }
 
+TEST(altu, da)
+{
+  std::string s = "Hello World";
+  EXPECT_EQ(util::hexToString(s), "48656C6C6F20576F726C64");
+}

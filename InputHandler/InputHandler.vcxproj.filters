@@ -19,6 +19,12 @@
     <Filter Include="PemHandler">
       <UniqueIdentifier>{e6362429-f3d6-43cb-b717-dd91ffc52272}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JsonHandler">
+      <UniqueIdentifier>{a66ceea6-c870-4920-b486-834093fee033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IFileHandler">
+      <UniqueIdentifier>{9f5fa752-776d-4cd5-b823-9fbbd659f85f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ext.h">
@@ -30,6 +36,15 @@
     <ClInclude Include="PemHandler\pemhandler.h">
       <Filter>PemHandler</Filter>
     </ClInclude>
+    <ClInclude Include="JsonHandler\jsonhandler.h">
+      <Filter>JsonHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IFileHandler\IFileHandler.h">
+      <Filter>IFileHandler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArgHandler\arghandler.cpp">
@@ -37,6 +52,12 @@
     </ClCompile>
     <ClCompile Include="PemHandler\pemhandler.cpp">
       <Filter>PemHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonHandler\jsonhandler.cpp">
+      <Filter>JsonHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="IFileHandler\IFileHandler.cpp">
+      <Filter>IFileHandler</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

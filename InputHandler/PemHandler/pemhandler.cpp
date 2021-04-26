@@ -1,5 +1,6 @@
 #include "pemhandler.h"
 #include "../../Utils/ext.h"
+#include "../common.h"
 #include <fstream>
 #include <iostream>
 #include <sodium.h>
@@ -39,9 +40,9 @@ namespace ih
     return util::bech32::encode(hrp, util::convertBits(pk, crypto_sign_PUBLICKEYBYTES,  8, 5, true));
   }
 
-  bool PemFileHandler::isFileValid() const
+  bool PemFileHandler::isFileValid()
   {
-    return (isFileExtensionValid() && (m_fileContent != ""));
+    return ((fileExists()) && (isFileExtensionValid("pem")) && (m_fileContent != ""));
   }
 
   std::vector<char> PemFileHandler::getKeyBytesFromFile() const
@@ -57,7 +58,7 @@ namespace ih
   {
     std::string line;
     std::string keyLines = "";
-    std::ifstream inFile(m_filePath);
+    std::ifstream inFile(getFilePath());
 
     if (inFile.is_open())
     {
@@ -70,20 +71,5 @@ namespace ih
     }
 
     return keyLines;
-  }
-
-  bool PemFileHandler::isFileExtensionValid() const
-  {
-    return getFileExtension() == "pem";
-  }
-
-  std::string PemFileHandler::getFileExtension() const
-  {
-    std::string ext = "";
-
-    if (m_filePath.find_last_of(".") != std::string::npos)
-      ext = m_filePath.substr(m_filePath.find_last_of(".") + 1);
-
-    return ext;
   }
 }

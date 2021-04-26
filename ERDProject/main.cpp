@@ -7,29 +7,54 @@
 int main(int argc, char* argv[])
 {
   ih::ArgHandler argHandler(argc, argv);
-  ih::ArgHandler::RequestedCmd reqestedCmd = argHandler.getRequestedCmd();
 
-  switch (reqestedCmd)
+  ih::RequestedCmd const reqestedCmd = argHandler.getRequestedCmd();
+  errorCode const errCode = reqestedCmd.getErrorCode();
+
+  if (errCode != ERROR_NONE)
   {
-  case ih::ArgHandler::help:
+    argHandler.reportError(errCode);
+    return 0;
+  }
+
+  ih::RequestType const reqType = reqestedCmd.getRequestType();
+
+  switch (reqType)
+  {
+  case ih::help:
   {
     argHandler.showInfo();
   }
-  case ih::ArgHandler::loadPemFile:
+  case ih::loadPemFile:
   {
     ih::PemFileHandler pemHandler(argHandler.getPemFilePath());
+
     if (pemHandler.isFileValid())
     {
     }
+    else
+    {
+      argHandler.reportError(ERROR_PEM_INPUT_FILE);
+    }
     break;
   }
-  case ih::ArgHandler::createTransactionNoData:
+  case ih::createTransactionNoData:
   {
-    std::cerr << "Create trans no data";
+    ih::JsonHandler jsonHandler(reqestedCmd.getUserInputs());
+
+    if (jsonHandler.isFileValid())
+    {
+    }
+    else
+    {
+      argHandler.reportError(ERROR_JSON_OUT_FILE);
+    }
+
     break;
   }
-  case ih::ArgHandler::createTransactionWithData:
+  case ih::createTransactionWithData:
   {
+    std::cerr << "Create trans WITH data";
     break;
   }
   default:
