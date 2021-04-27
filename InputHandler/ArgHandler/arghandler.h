@@ -8,35 +8,25 @@
 
 namespace ih
 {
-  // TODO: Add here an error code as well for return or as input param for argHandler
   enum RequestType
   {
     invalid,
     help,
     loadPemFile,
-    createTransactionWithData,
-    createTransactionNoData,
+    createTransaction
   };
 
   class RequestedCmd
   {
   public:
-    RequestedCmd(std::map<uint32_t,std::string> const userInputs,
-                 RequestType const reqType, errorCode const errCode) :
-      m_userInputs(userInputs), m_requestType(reqType), m_errCode(errCode){}
+    RequestedCmd(std::map<uint32_t, std::string> const userInputs,
+                 RequestType const reqType, errorCode const errCode);
 
-    const std::map<uint32_t, std::string>& getUserInputs() const
-    {
-      return m_userInputs;
-    }
-    const RequestType& getRequestType() const
-    {
-      return m_requestType;
-    }
-    const errorCode& getErrorCode() const
-    {
-      return m_errCode;
-    }
+    const std::map<uint32_t, std::string>& getUserInputs() const;
+
+    const RequestType& getRequestType() const;
+
+    const errorCode& getErrorCode() const;
 
   private:
     std::map<uint32_t, std::string> const m_userInputs;
@@ -46,24 +36,15 @@ namespace ih
 
   class ArgHandler
   {
+    typedef std::map<std::string, std::vector<std::string>> commandGroupMap;
+
   public:
 
-    explicit ArgHandler(int const& argc, char* const argv[]) : m_errCode(ERROR_NONE)
-    {
-      if (argc > 1)
-      {
-        for (int ct = 1; ct < argc; ++ct)
-        {
-          m_arguments.push_back(std::string(argv[ct]));
-        }
-      }
-    }
+    explicit ArgHandler(int const& argc, char* const argv[]);
 
     RequestedCmd getRequestedCmd();
 
-    std::string getPemFilePath() const;
-
-    void reportError(errorCode const err) const;
+    void reportError(errorCode err) const;
 
     void showInfo() const;
 
@@ -71,30 +52,27 @@ namespace ih
 
     int argCount() const;
 
-    bool isCommandGroup(std::string const arg) const;
+    bool isCmdGroup(std::string const arg) const;
 
-    bool isSubCommandGroup(std::string const subCommandGroup) const;
+    bool isSubCmd(uint32_t const subCmdIdx, std::string const subCmd) const;
 
     template <typename T>
-    bool checkAndSetUserInput(unsigned int const argIdx,
-                              std::string const arg, std::map<uint32_t,std::string>& userInputs,
-                              uint32_t valIdx, errorCode errCode);
+    bool checkAndSetUserInput(uint32_t const argIdx, std::string const arg,
+                              std::map<uint32_t,std::string>& userInputs, uint32_t valIdx,
+                              errorCode errCode);
 
-    // Generic template function to check for user value input.
+    // Generic template function to check for user input value.
     // Expects input to be an unsigned long int.
     template<typename T>
     bool isUserInputValid(std::string arg) const;
 
-    // Specialization template function to check for user value input.
+    // Specialization template function to check for user input value.
     // Expects input to be a non-empty string.
     template<>
     bool isUserInputValid<std::string>(std::string arg) const;
 
     void showSubGroupAvailableCmds(std::string cmdGroup) const;
 
-    bool areArgumentsValid();
-
-    typedef std::map<std::string, std::vector<std::string>> commandGroupMap;
     std::vector <std::string> m_arguments;
     errorCode m_errCode;
     static commandGroupMap const m_commandGroupMap;

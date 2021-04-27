@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../IFileHandler/IFileHandler.h"
+#include "../InputWrappers/pemhandler_input_wrapper.h"
 
 namespace ih
 {
@@ -12,13 +13,9 @@ namespace ih
     std::string const hrp = "erd";
 
   public:
-    explicit PemFileHandler(std::string const& path):
-      IFileHandler(path)
-    {
-      m_fileContent = getFileContent();
-    }
+    explicit PemFileHandler(wrapper::PemHandlerInputWrapper const inputWrapper);
 
-    bool isFileValid() override;
+    bool isFileValid() const override;
 
     void getSeed(unsigned char* seed) const;
 
@@ -28,6 +25,8 @@ namespace ih
 
     std::string getSegwitAddress() const;
 
+    void printFileContent() const;
+
   private:
 
     std::string getFileContent() const;
@@ -35,6 +34,7 @@ namespace ih
     std::vector<char> getKeyBytesFromFile() const;
 
     std::string m_fileContent;
+    wrapper::PemHandlerInputWrapper m_inputData;
   };
 }
 

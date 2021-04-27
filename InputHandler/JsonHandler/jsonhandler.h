@@ -8,6 +8,7 @@
 #include <fstream>
 #include "../../Utils/ext.h"
 #include "../PemHandler/pemhandler.h"
+#include "../InputWrappers/jsonhandler_input_wrapper.h"
 #include "sodium.h"
 
 
@@ -18,50 +19,27 @@ namespace ih
     uint64_t invalidRet = 0;
 
   public:
-    explicit JsonHandler(std::map<uint32_t, std::string> userInputs):
-      IFileHandler(userInputs[ARGS_TX_IDX_JSON_OUT_FILE]),
-      m_userInputs(userInputs),
-      m_pemHandler(userInputs[ARGS_TX_IDX_PEM_INPUT_FILE])
-    {
-      m_signWithData = (userInputs.find(ARGS_TX_IDX_DATA) != userInputs.end())
-        ? (true) : (false);
-    }
+    explicit JsonHandler(wrapper::PemHandlerInputWrapper const pemInputWrapper,
+                         wrapper::JsonHandlerInputWrapper const jsonInputWrapper);
+
     //TODO: handle if pem/json input is not path
-    bool isFileValid() override
-    {
-      return fileExists() && isFileExtensionValid("json");
-    }
+    bool isFileValid() const override;
 
     void writeOutputFile();
 
   private:
 
-    uint64_t getNonce();
-    std::string getValue();
-    std::string getReceiver();
     std::string getSender();
-    uint64_t getGasPrice();
-    uint64_t getGasLimit();
-    std::string getData();
-    std::string getChainId();
-    uint64_t getVersion();
-    std::string getInputFile()
-    {
-      return m_userInputs[ARGS_TX_IDX_PEM_INPUT_FILE];
-    }
-    std::string getOutputFile();
+
+    std::string getSignature(nlohmann::ordered_json unsignedTransaction);
 
     nlohmann::ordered_json createUnsignedTransaction();
 
     void signTransaction(nlohmann::ordered_json& transaction);
 
-    std::string getJsonSerialized();
 
-    std::string getSignature(nlohmann::ordered_json unsignedTransaction);
-
-    std::map<uint32_t, std::string> m_userInputs;
+    wrapper::JsonHandlerInputWrapper m_inputData;
     ih::PemFileHandler m_pemHandler;
-    bool m_signWithData;
   };
 }
 

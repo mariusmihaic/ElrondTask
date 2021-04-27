@@ -12,7 +12,7 @@ namespace ih
     IFileHandler(std::string const& path) : m_filePath(path)
     {}
 
-    virtual bool isFileValid()
+    virtual bool isFileValid() const
     {
       return fileExists();
     }
@@ -29,14 +29,14 @@ namespace ih
       return f.good() && f.is_open();
     }
 
-    bool isFileExtensionValid(std::string const ext)
+    bool isFileExtensionValid(std::string const ext) const
     {
       return getFileExtension() == ext;
     }
 
 
   private:
-    std::string getFileExtension()
+    std::string getFileExtension() const
     {
       std::string ext = "";
 

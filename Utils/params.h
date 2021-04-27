@@ -11,7 +11,7 @@ constexpr auto STR_JSON_SENDER = "sender";
 constexpr auto STR_JSON_GAS_PRICE = "gasPrice";
 constexpr auto STR_JSON_GAS_LIMIT = "gasLimit";
 constexpr auto STR_JSON_DATA = "data";
-constexpr auto STR_JSON_CHAIN_ID = "chainId";
+constexpr auto STR_JSON_CHAIN_ID = "chainID";
 constexpr auto STR_JSON_VERSION = "version";
 constexpr auto STR_JSON_SIGNATURE = "signature";
 
@@ -25,10 +25,8 @@ constexpr auto JSON_TX_IDX_DATA = 6U;
 constexpr auto JSON_TX_IDX_CHAIN_ID = 7U;
 constexpr auto JSON_TX_IDX_VERSION = 8U;
 
-constexpr auto JSON_TX_DEFAULT_CHAIN_ID = "1";
+constexpr auto JSON_TX_DEFAULT_CHAIN_ID = "T";
 constexpr auto JSON_TX_DEFAULT_VERSION = 1U;
-
-constexpr auto ARGS_PEM_IDX_FILE = 0U;
 
 constexpr auto ARGS_TX_IDX_NONCE = 0U;
 constexpr auto ARGS_TX_IDX_VALUE = 1U;
@@ -52,6 +50,7 @@ typedef unsigned long errorCode;
 typedef std::string errorMessage;
 
 errorCode const ERROR_NONE = 0UL;
+
 errorCode const ERROR_NONCE = 1U;
 errorCode const ERROR_VALUE = 1UL<<1;
 errorCode const ERROR_RECEIVER = 1UL << 2U;

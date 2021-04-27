@@ -6,6 +6,11 @@
 
 int main(int argc, char* argv[])
 {
+  if (sodium_init() < 0)
+  {
+    /* panic! the library couldn't be initialized, it is not safe to use */
+  }
+
   ih::ArgHandler argHandler(argc, argv);
 
   ih::RequestedCmd const reqestedCmd = argHandler.getRequestedCmd();
@@ -27,10 +32,12 @@ int main(int argc, char* argv[])
   }
   case ih::loadPemFile:
   {
-    ih::PemFileHandler pemHandler(argHandler.getPemFilePath());
+    ih::wrapper::PemHandlerInputWrapper const pemInputWrapper(reqestedCmd.getUserInputs());
+    ih::PemFileHandler pemHandler(pemInputWrapper);
 
     if (pemHandler.isFileValid())
     {
+      pemHandler.printFileContent();
     }
     else
     {
@@ -38,12 +45,15 @@ int main(int argc, char* argv[])
     }
     break;
   }
-  case ih::createTransactionNoData:
+  case ih::createTransaction:
   {
-    ih::JsonHandler jsonHandler(reqestedCmd.getUserInputs());
+    ih::wrapper::PemHandlerInputWrapper const pemInputWrapper(reqestedCmd.getUserInputs());
+    ih::wrapper::JsonHandlerInputWrapper const jsonInputWrapper(reqestedCmd.getUserInputs());
+    ih::JsonHandler jsonHandler(pemInputWrapper , jsonInputWrapper);
 
     if (jsonHandler.isFileValid())
     {
+      jsonHandler.writeOutputFile();
     }
     else
     {
@@ -52,25 +62,11 @@ int main(int argc, char* argv[])
 
     break;
   }
-  case ih::createTransactionWithData:
-  {
-    std::cerr << "Create trans WITH data";
-    break;
-  }
   default:
   {
     argHandler.showInfo();
   }
   }
-
-
-  if (sodium_init() < 0) {
-    /* panic! the library couldn't be initialized, it is not safe to use */
-  }
-
-  //std::string privateAndPublicKey = "MWY0ZGQ4YjdkMThiNWQwNzg1YzlkMDgwMmVjMTRkNTUzZGJhMzU2ODEyYjg1YzdlMzQxNDM3MzM4ODQ3MjAxMDg0YTE2OGNkNGQ3ZDg2MDg4NDg2MzJkMDk3ODNkMjhhZTlhODIzOTAwNzc5Mjk1NjY3NTdlMjU1OTZmZTk2NDc";
-
-  //crypto_sign_ed25519_sk_to_pk(pkERD, skERD);
 
   return 0;
 }

@@ -3,6 +3,40 @@
 
 namespace ih
 {
+
+  RequestedCmd::RequestedCmd(std::map<uint32_t, std::string> const userInputs,
+                             RequestType const reqType, errorCode const errCode) :
+    m_userInputs(userInputs),
+    m_requestType(reqType),
+    m_errCode(errCode) {}
+
+  const std::map<uint32_t, std::string>& RequestedCmd::getUserInputs() const
+  {
+    return m_userInputs;
+  }
+
+  const RequestType& RequestedCmd::getRequestType() const
+  {
+    return m_requestType;
+  }
+
+  const errorCode& RequestedCmd::getErrorCode() const
+  {
+    return m_errCode;
+  }
+
+
+  ArgHandler::ArgHandler(int const& argc, char* const argv[]) : m_errCode(ERROR_NONE)
+  {
+    if (argc > 1)
+    {
+      for (int ct = 1; ct < argc; ++ct)
+      {
+        m_arguments.push_back(std::string(argv[ct]));
+      }
+    }
+  }
+
   ArgHandler::commandGroupMap const ArgHandler::m_commandGroupMap =
   {
     {{"transaction"} , {"new"}},
@@ -11,13 +45,13 @@ namespace ih
   };
 
   //TODO: This should be changed. should only look at first params to be subcomands, not inside all m_arguments
-  bool ArgHandler::isSubCommandGroup(std::string const subCommandGroup) const
+  bool ArgHandler::isSubCmd(uint32_t const subCmdIdx, std::string const subCmd) const
   {
-    if (argCount() <= 1) return false;
-    return (std::find(m_arguments.begin() + 1, m_arguments.end(), subCommandGroup) != m_arguments.end());
+    if (argCount() <= subCmdIdx) return false;
+    return (m_arguments[subCmdIdx] == subCmd);
   }
 
-  bool ArgHandler::isCommandGroup(std::string const arg) const
+  bool ArgHandler::isCmdGroup(std::string const arg) const
   {
     if (argCount() == 0) return false;
     return (m_arguments[0] == arg);
@@ -40,14 +74,18 @@ namespace ih
   }
 
   template <typename T>
-  bool ArgHandler::checkAndSetUserInput(unsigned int const argIdx, std::string const arg,
+  bool ArgHandler::checkAndSetUserInput(uint32_t const argIdx, std::string const arg,
                                         std::map<uint32_t, std::string>& userInputs, uint32_t valIdx,
                                         errorCode errCode)
   {
     // If user didn't provide enough arguments OR
     // size(user arg) <= size(required arg)
     if (argCount() <= argIdx) return false;
-    if (m_arguments[argIdx].size() <= arg.size()) return false;
+    if (m_arguments[argIdx].size() <= arg.size())
+    {
+      m_errCode |= errCode;
+      return false;
+    }
 
     bool ret = false;
 
@@ -65,17 +103,10 @@ namespace ih
       }
       else
       {
-        m_errCode &= errCode;
+        m_errCode |= errCode;
       }
     }
 
-    return ret;
-  }
-
-  std::string ArgHandler::getPemFilePath() const
-  {
-    std::string ret = "";
-    if (argCount() == 3) ret =  m_arguments[2];
     return ret;
   }
 
@@ -86,16 +117,16 @@ namespace ih
     std::map<uint32_t, std::string> userInputs;
 
     // TODO: No magic numbers
-    if ((argCount() == 1) && isCommandGroup("help"))
+    if ((argCount() == 1) && isCmdGroup("help"))
     {
       reqType = help;
     }
-    else if ((argCount() == 3) && isCommandGroup("pem") && isSubCommandGroup("load") &&
-             (checkAndSetUserInput<std::string>(2U, "--file=", userInputs, ARGS_PEM_IDX_FILE, ERROR_PEM_INPUT_FILE)))
+    else if ((argCount() == 3) && isCmdGroup("pem") && isSubCmd(1U, "load") &&
+             (checkAndSetUserInput<std::string>(2U, "--file=", userInputs, ARGS_TX_IDX_PEM_INPUT_FILE, ERROR_PEM_INPUT_FILE)))
     {
       reqType = loadPemFile;
     }
-    else if (((argCount() == 10) || (argCount() == 9)) && isCommandGroup("transaction") && isSubCommandGroup("new") &&
+    else if (((argCount() == 9) || (argCount() == 10)) && isCmdGroup("transaction") && isSubCmd(1U, "new") &&
       checkAndSetUserInput<uint64_t>(2U, "--nonce=", userInputs, ARGS_TX_IDX_NONCE, ERROR_NONCE) &&
       checkAndSetUserInput<std::string>(3U, "--value=", userInputs, ARGS_TX_IDX_VALUE, ERROR_VALUE) &&
       checkAndSetUserInput<std::string>(4U, "--receiver=", userInputs, ARGS_TX_IDX_RECEIVER, ERROR_RECEIVER) &&
@@ -104,14 +135,11 @@ namespace ih
       checkAndSetUserInput<std::string>(7U, "--pem=", userInputs, ARGS_TX_IDX_PEM_INPUT_FILE, ERROR_PEM_INPUT_FILE) &&
       checkAndSetUserInput<std::string>(8U, "--outfile=", userInputs, ARGS_TX_IDX_JSON_OUT_FILE, ERROR_JSON_OUT_FILE))
     {
-      if (argCount() == 9)
+      reqType = createTransaction;
+
+      if ((argCount() == 10) && (!checkAndSetUserInput<std::string>(9U, "--data=", userInputs, ARGS_TX_IDX_DATA, ERROR_DATA)))
       {
-        reqType = createTransactionNoData;
-      }
-      else if ((argCount() == 10) &&
-        checkAndSetUserInput<std::string>(8U, "--data=", userInputs, ARGS_TX_IDX_DATA, ERROR_DATA))
-      {
-        reqType = createTransactionWithData;
+        reqType = invalid;
       }
     }
 
@@ -123,51 +151,26 @@ namespace ih
     return m_arguments.size();
   }
 
-  bool ArgHandler::areArgumentsValid()
-  {
-    if (m_arguments.size() == 0)
-    {
-      return false;
-    }
-
-    bool argumentsValid = false;
-
-    std::string const argumentGroup = m_arguments[0];
-
-    auto itGroup = ArgHandler::m_commandGroupMap.find(argumentGroup);
-
-    if (itGroup != m_commandGroupMap.end())
-    {
-      std::vector<std::string> subGroup = itGroup->second;
-
-      for (unsigned int ct = 1; ct < m_arguments.size(); ++ct)
-      {
-        if (std::find(subGroup.begin(), subGroup.end(), m_arguments[ct]) != subGroup.end())
-        {
-          argumentsValid = true;
-        }
-      }
-    }
-    return argumentsValid;
-  }
-
   void ArgHandler::showSubGroupAvailableCmds(std::string cmdGroup) const
   {
-    std::vector<std::string> cmds = m_commandGroupMap.at(cmdGroup);
+    std::vector<std::string> cmd = m_commandGroupMap.at(cmdGroup);
 
-    if (cmds.size() == 0) std::cerr << "-";
+    if (cmd.size() == 0) std::cerr << "-";
+
     else
     {
-      for (std::string cmd : cmds)
+      for (std::string subCmd : cmd)
       {
-        std::cerr << cmd << " ";
+        std::cerr << subCmd << " ";
       }
     }
   }
 
-  void ArgHandler::reportError(errorCode const err) const
+  void ArgHandler::reportError(errorCode err) const
   {
-    std::cerr << errors.at(err);
+    std::cerr << "Error. ";
+
+    if (errors.find(err) != errors.end()) std::cerr << errors.at(err) <<"\n";
   }
 
   void ArgHandler::showInfo() const

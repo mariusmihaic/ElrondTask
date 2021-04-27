@@ -4,5 +4,6 @@
 #include "ArgHandler/arghandler.h"
 #include "PemHandler/pemhandler.h"
 #include "JsonHandler/jsonhandler.h"
+#include "InputWrappers/pemhandler_input_wrapper.h"
 
 #endif
