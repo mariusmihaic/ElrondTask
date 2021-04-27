@@ -1,8 +1,0 @@
-﻿  jsonhandler.cpp
-d:\erd\erdproject\utils\stringtochar.h(13): warning C4018: '<': signed/unsigned mismatch
-d:\erd\erdproject\inputhandler\jsonhandler\jsonhandler.cpp(49): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
-d:\erd\erdproject\inputhandler\jsonhandler\jsonhandler.cpp(72): warning C4101: 'ERROR_INVALID_NONCE': unreferenced local variable
-d:\erd\erdproject\inputhandler\jsonhandler\jsonhandler.cpp(97): warning C4101: 'ERROR_INVALID_GAS_PRICE': unreferenced local variable
-d:\erd\erdproject\inputhandler\jsonhandler\jsonhandler.cpp(112): warning C4101: 'ERROR_INVALID_GAS_LIMIT': unreferenced local variable
-IFileHandler.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-  InputHandler.vcxproj -> D:\ERD\ERDProject\Debug\InputHandler.lib
