@@ -75,7 +75,7 @@ namespace ih
 
   template <typename T>
   bool ArgHandler::checkAndSetUserInput(uint32_t const argIdx, std::string const arg,
-                                        std::map<uint32_t, std::string>& userInputs, uint32_t valIdx,
+                                        std::map<uint32_t, std::string>& userInputs, uint32_t userInputIdx,
                                         errorCode errCode)
   {
     // If user didn't provide enough arguments OR
@@ -98,7 +98,7 @@ namespace ih
       std::string const userInput = userArg.substr(arg.size(), userArg.size());
       if (isUserInputValid<T>(userInput))
       {
-        userInputs[valIdx] = userInput;
+        userInputs[userInputIdx] = userInput;
         ret = true;
       }
       else

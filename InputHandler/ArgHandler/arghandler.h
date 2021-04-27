@@ -56,7 +56,7 @@ namespace ih
 
     template <typename T>
     bool checkAndSetUserInput(uint32_t const argIdx, std::string const arg,
-                              std::map<uint32_t,std::string>& userInputs, uint32_t valIdx,
+                              std::map<uint32_t,std::string>& userInputs, uint32_t userInputIdx,
                               errorCode errCode);
 
     // Generic template function to check for user input value.
