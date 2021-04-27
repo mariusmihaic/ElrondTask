@@ -14,8 +14,6 @@ namespace ih
 {
   class JsonHandler : public IFileHandler
   {
-    uint64_t invalidRet = 0;
-
   public:
     explicit JsonHandler(wrapper::PemHandlerInputWrapper const pemInputWrapper,
                          wrapper::JsonHandlerInputWrapper const jsonInputWrapper);
