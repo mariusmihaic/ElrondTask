@@ -45,9 +45,6 @@
     <ClInclude Include="bites.h">
       <Filter>conversion</Filter>
     </ClInclude>
-    <ClInclude Include="json.hpp">
-      <Filter>json</Filter>
-    </ClInclude>
     <ClInclude Include="fifo_map.hpp">
       <Filter>json</Filter>
     </ClInclude>

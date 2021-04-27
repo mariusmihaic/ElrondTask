@@ -291,26 +291,26 @@ TEST(ArgHandler, getRequestedCmd_getErrorCode_transaction_new_invalidData_expect
   EXPECT_EQ(argHandler.getRequestedCmd().getErrorCode(), ERROR_DATA);
 }
 
-class ErrorReportParametrized : public ::testing::TestWithParam<errorCode> {};
-
-INSTANTIATE_TEST_CASE_P(
-  AllErrors,
-  ErrorReportParametrized,
-  ::testing::Values(ERROR_PEM_INPUT_FILE, ERROR_VALUE, ERROR_NONCE, ERROR_GAS_PRICE, ERROR_RECEIVER,
-                    ERROR_GAS_LIMIT, ERROR_PEM_INPUT_FILE, ERROR_JSON_OUT_FILE, ERROR_DATA , 111U));
-
-TEST_P(ErrorReportParametrized, reportError_differentErrors)
-{
-  int const argc = 1;
-  char* argv[argc];
-
-  argv[0] = "ERDProject.exe";
-
-  ih::ArgHandler argHandler(argc, argv);
-  errorCode const& currParam = GetParam();
-
-  argHandler.reportError(currParam);
-}
+//class ErrorReportParametrized : public ::testing::TestWithParam<errorCode> {};
+//
+//INSTANTIATE_TEST_CASE_P(
+//  AllErrors,
+//  ErrorReportParametrized,
+//  ::testing::Values(ERROR_PEM_INPUT_FILE, ERROR_VALUE, ERROR_NONCE, ERROR_GAS_PRICE, ERROR_RECEIVER,
+//                    ERROR_GAS_LIMIT, ERROR_PEM_INPUT_FILE, ERROR_JSON_OUT_FILE, ERROR_DATA ,
+//                    ERROR_SODIUM_INIT, 111U));
+//
+//TEST_P(ErrorReportParametrized, reportError_differentErrors)
+//{
+//  int const argc = 1;
+//  char* argv[argc];
+//
+//  argv[0] = "ERDProject.exe";
+//
+//  errorCode const& currParam = GetParam();
+//
+//  reportError(currParam);
+//}
 
 
 TEST(JsonHandler, writeOutputFile)

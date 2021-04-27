@@ -37,15 +37,6 @@ constexpr auto ARGS_TX_IDX_PEM_INPUT_FILE = 5U;
 constexpr auto ARGS_TX_IDX_JSON_OUT_FILE = 6U;
 constexpr auto ARGS_TX_IDX_DATA = 7U;
 
-constexpr auto ERROR_INVALID_NONCE = 0U;
-constexpr auto ERROR_INVALID_VALUE = 1U;
-constexpr auto ERROR_INVALID_RECEIVER = 2U;
-constexpr auto ERROR_INVALID_GAS_PRICE = 3U;
-constexpr auto ERROR_INVALID_GAS_LIMIT = 4U;
-constexpr auto ERROR_INVALID_PEM_INPUT_FILE = 5U;
-constexpr auto ERROR_INVALID_JSON_OUT_FILE = 6U;
-constexpr auto ERROR_INVALID_DATA = 7U;
-
 typedef unsigned long errorCode;
 typedef std::string errorMessage;
 
@@ -59,6 +50,7 @@ errorCode const ERROR_GAS_LIMIT = 1UL << 4U;
 errorCode const ERROR_PEM_INPUT_FILE = 1UL << 5U;
 errorCode const ERROR_JSON_OUT_FILE = 1UL << 6U;
 errorCode const ERROR_DATA = 1UL << 7U;
+errorCode const ERROR_SODIUM_INIT = 1UL << 8U;
 
 errorMessage const ERROR_MSG_NONCE = "Invalid nonce.";
 errorMessage const ERROR_MSG_VALUE = "Invalid value.";
@@ -68,6 +60,7 @@ errorMessage const ERROR_MSG_GAS_LIMIT = "Invalid gas limit.";
 errorMessage const ERROR_MSG_PEM_INPUT_FILE = "Invalid pem file.";
 errorMessage const ERROR_MSG_JSON_OUT_FILE = "Invalid json file.";
 errorMessage const ERROR_MSG_DATA = "Invalid data.";
+errorMessage const ERROR_MSG_SODIUM_INIT = "Could not initialize sodium library.";
 
 std::map<errorCode, errorMessage> const errors =
 {
@@ -78,7 +71,8 @@ std::map<errorCode, errorMessage> const errors =
   {ERROR_GAS_LIMIT, ERROR_MSG_GAS_LIMIT},
   {ERROR_PEM_INPUT_FILE, ERROR_MSG_PEM_INPUT_FILE},
   {ERROR_JSON_OUT_FILE, ERROR_MSG_JSON_OUT_FILE},
-  {ERROR_DATA, ERROR_MSG_DATA}
+  {ERROR_DATA, ERROR_MSG_DATA},
+  {ERROR_SODIUM_INIT, ERROR_MSG_SODIUM_INIT}
 };
 
 #endif

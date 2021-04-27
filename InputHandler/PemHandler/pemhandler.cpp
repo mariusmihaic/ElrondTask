@@ -1,6 +1,5 @@
 #include "pemhandler.h"
 #include "../../Utils/ext.h"
-#include "../common.h"
 #include <fstream>
 #include <iostream>
 #include <sodium.h>

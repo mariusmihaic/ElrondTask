@@ -121,7 +121,6 @@
     <ClInclude Include="ext.h" />
     <ClInclude Include="fifo_map.hpp" />
     <ClInclude Include="hex.h" />
-    <ClInclude Include="json.hpp" />
     <ClInclude Include="params.h" />
     <ClInclude Include="stringtochar.h" />
   </ItemGroup>

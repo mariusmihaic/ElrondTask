@@ -39,75 +39,8 @@ TEST(Hex, toBytes)
   EXPECT_EQ(bytes, expectedBytes);
 }
 
-
-TEST(ddd, aaa)
+TEST(String, toHex)
 {
-
-
-  //std::string argument = "\"da\"";
-  //int x = argument.size();
-  //if ((argument.at(0) == '"') && (argument.at(argument.size() - 1) == '"'))
-  //{
-  //  int x = 1;
-  //}
-  std::string userArg = "opt=3";
-  std::string arg = "opt=";
-
-  bool const isCmdValid = (userArg.substr(0, arg.size()) == arg) ? (true) : (false);
-  std::string userInput = userArg.substr(arg.size(), userArg.size());
-  int x = 1;
-}
-
-TEST(dsa, dsa)
-{
-  std::string striing = "c321aca3d4-%#1";
-  int lengthh = striing.length();
-  int sizee = striing.size();
-
-
-  std::string tx = "{\"nonce\":7,\"value\":\"10000000000000000000\",\"receiver\":\"erd1cux02zersde0l7hhklzhywcxk4u9n4py5tdxyx7vrvhnza2r4gmq4vw35r\",\"sender\":\"erd1l453hd0gt5gzdp7czpuall8ggt2dcv5zwmfdf3sd3lguxseux2fsmsgldz\",\"gasPrice\":1000000000,\"gasLimit\":70000,\"data\":\"Zm9yIHRoZSBib29r\",\"chainID\":\"1\",\"version\":1}";
-
-  try
-  {
-    int x = std::stoi("3dsa");
-    throw 1;
-  }
-  catch(int e)
-  {
-    int x = 1;
-  }
-  //nlohmann::json j;
-  std::map<uint32_t, std::string> userInputs;
-  userInputs[0] = "dsa";
-  nlohmann::ordered_json j(userInputs);
-  std::string json_dup = j.dump();
-  j["pi"] = 3.141;
-
-  // add a Boolean that is stored as bool
-  j["happy"] = true;
-
-  // add a string that is stored as std::string
-  j["name"] = "Niels";
-
-  // add another null object by passing nullptr
-  j["nothing"] = nullptr;
-
-  // add an object inside the object
-  j["answer"]["everything"] = 42;
-
-
-
-
- // auto j3 = nlohmann::json::object({ {"pi" , 3.14}, {"happy",true}, {"name", "Niels"}, {"currency", "USD"}, {"value", 42.99} });
-
-  std::string s = j.dump();
-  std::cerr << s;
-  //s.erase(std::remove(s.begin(), s.end(), '\\'), s.end());
-
-}
-
-TEST(altu, da)
-{
-  std::string s = "Hello World";
-  EXPECT_EQ(util::hexToString(s), "48656C6C6F20576F726C64");
+  std::string str = "Hello World";
+  EXPECT_EQ(util::stringToHex(str), "48656c6c6f20576f726c64");
 }

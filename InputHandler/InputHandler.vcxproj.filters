@@ -25,6 +25,9 @@
     <Filter Include="IFileHandler">
       <UniqueIdentifier>{9f5fa752-776d-4cd5-b823-9fbbd659f85f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="InputWrappers">
+      <UniqueIdentifier>{34ef29a7-c521-4e70-b5a5-c14f0a8ac8c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ext.h">
@@ -36,14 +39,20 @@
     <ClInclude Include="PemHandler\pemhandler.h">
       <Filter>PemHandler</Filter>
     </ClInclude>
-    <ClInclude Include="JsonHandler\jsonhandler.h">
-      <Filter>JsonHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IFileHandler\IFileHandler.h">
       <Filter>IFileHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="InputWrappers\pemhandler_input_wrapper.h">
+      <Filter>InputWrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputWrappers\iwrapper.h">
+      <Filter>InputWrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputWrappers\jsonhandler_input_wrapper.h">
+      <Filter>InputWrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonHandler\jsonhandler.h">
+      <Filter>JsonHandler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,11 +4,14 @@
 #include <vector>
 #include "..\InputHandler\ext.h"
 
+void reportError(errorCode const err);
+
 int main(int argc, char* argv[])
 {
   if (sodium_init() < 0)
   {
-    /* panic! the library couldn't be initialized, it is not safe to use */
+    reportError(ERROR_SODIUM_INIT);
+    return 0;
   }
 
   ih::ArgHandler argHandler(argc, argv);
@@ -18,7 +21,7 @@ int main(int argc, char* argv[])
 
   if (errCode != ERROR_NONE)
   {
-    argHandler.reportError(errCode);
+    reportError(errCode);
     return 0;
   }
 
@@ -41,7 +44,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-      argHandler.reportError(ERROR_PEM_INPUT_FILE);
+      reportError(ERROR_PEM_INPUT_FILE);
     }
     break;
   }
@@ -57,7 +60,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-      argHandler.reportError(ERROR_JSON_OUT_FILE);
+      reportError(ERROR_JSON_OUT_FILE);
     }
 
     break;
@@ -70,3 +73,11 @@ int main(int argc, char* argv[])
 
   return 0;
 }
+
+void reportError(errorCode const err)
+{
+  std::cerr << "Error. ";
+
+  if (errors.find(err) != errors.end()) std::cerr << errors.at(err) << "\n";
+}
+

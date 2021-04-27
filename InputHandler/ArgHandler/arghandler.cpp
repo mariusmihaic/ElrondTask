@@ -1,6 +1,7 @@
 #include "arghandler.h"
 #include <iostream>
 
+
 namespace ih
 {
 
@@ -44,7 +45,6 @@ namespace ih
     {"help" , {}}
   };
 
-  //TODO: This should be changed. should only look at first params to be subcomands, not inside all m_arguments
   bool ArgHandler::isSubCmd(uint32_t const subCmdIdx, std::string const subCmd) const
   {
     if (argCount() <= subCmdIdx) return false;
@@ -116,7 +116,7 @@ namespace ih
     RequestType reqType = invalid;
     std::map<uint32_t, std::string> userInputs;
 
-    // TODO: No magic numbers
+    // TODO: No magic numbers/strings
     if ((argCount() == 1) && isCmdGroup("help"))
     {
       reqType = help;
@@ -164,13 +164,6 @@ namespace ih
         std::cerr << subCmd << " ";
       }
     }
-  }
-
-  void ArgHandler::reportError(errorCode err) const
-  {
-    std::cerr << "Error. ";
-
-    if (errors.find(err) != errors.end()) std::cerr << errors.at(err) <<"\n";
   }
 
   void ArgHandler::showInfo() const

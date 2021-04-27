@@ -44,8 +44,6 @@ namespace ih
 
     RequestedCmd getRequestedCmd();
 
-    void reportError(errorCode err) const;
-
     void showInfo() const;
 
   private:
