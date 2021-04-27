@@ -39,9 +39,6 @@
     <ClInclude Include="PemHandler\pemhandler.h">
       <Filter>PemHandler</Filter>
     </ClInclude>
-    <ClInclude Include="IFileHandler\IFileHandler.h">
-      <Filter>IFileHandler</Filter>
-    </ClInclude>
     <ClInclude Include="InputWrappers\pemhandler_input_wrapper.h">
       <Filter>InputWrappers</Filter>
     </ClInclude>
@@ -54,6 +51,9 @@
     <ClInclude Include="JsonHandler\jsonhandler.h">
       <Filter>JsonHandler</Filter>
     </ClInclude>
+    <ClInclude Include="IFileHandler\ifilehandler.h">
+      <Filter>IFileHandler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArgHandler\arghandler.cpp">
@@ -65,7 +65,7 @@
     <ClCompile Include="JsonHandler\jsonhandler.cpp">
       <Filter>JsonHandler</Filter>
     </ClCompile>
-    <ClCompile Include="IFileHandler\IFileHandler.cpp">
+    <ClCompile Include="IFileHandler\ifilehandler.cpp">
       <Filter>IFileHandler</Filter>
     </ClCompile>
   </ItemGroup>

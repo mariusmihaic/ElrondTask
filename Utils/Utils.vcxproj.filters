@@ -51,7 +51,7 @@
     <ClInclude Include="params.h">
       <Filter>params</Filter>
     </ClInclude>
-    <ClInclude Include="stringtochar.h">
+    <ClInclude Include="strchr.h">
       <Filter>conversion</Filter>
     </ClInclude>
   </ItemGroup>

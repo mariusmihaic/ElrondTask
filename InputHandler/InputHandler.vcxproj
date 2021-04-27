@@ -119,7 +119,7 @@
   <ItemGroup>
     <ClInclude Include="ArgHandler\arghandler.h" />
     <ClInclude Include="ext.h" />
-    <ClInclude Include="IFileHandler\IFileHandler.h" />
+    <ClInclude Include="IFileHandler\ifilehandler.h" />
     <ClInclude Include="InputWrappers\iwrapper.h" />
     <ClInclude Include="InputWrappers\jsonhandler_input_wrapper.h" />
     <ClInclude Include="InputWrappers\pemhandler_input_wrapper.h" />
@@ -128,7 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArgHandler\arghandler.cpp" />
-    <ClCompile Include="IFileHandler\IFileHandler.cpp" />
+    <ClCompile Include="IFileHandler\ifilehandler.cpp" />
     <ClCompile Include="JsonHandler\jsonhandler.cpp" />
     <ClCompile Include="PemHandler\pemhandler.cpp" />
   </ItemGroup>

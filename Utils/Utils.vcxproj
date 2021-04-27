@@ -122,7 +122,7 @@
     <ClInclude Include="fifo_map.hpp" />
     <ClInclude Include="hex.h" />
     <ClInclude Include="params.h" />
-    <ClInclude Include="stringtochar.h" />
+    <ClInclude Include="strchr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base64.cpp" />

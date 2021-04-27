@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     reportError(ERROR_SODIUM_INIT);
     return 0;
   }
-
+  
   ih::ArgHandler argHandler(argc, argv);
 
   ih::RequestedCmd const reqestedCmd = argHandler.getRequestedCmd();

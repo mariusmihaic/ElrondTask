@@ -12,9 +12,6 @@
 
 namespace
 {
-
-  typedef std::vector<uint8_t> data;
-
   /** The Bech32 character set for encoding. */
   const char* CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";
 

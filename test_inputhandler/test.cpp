@@ -317,7 +317,7 @@ TEST(JsonHandler, writeOutputFile)
 {
   std::map<uint32_t, std::string> input;
 
-  input[ARGS_TX_IDX_NONCE] = "3";
+  input[ARGS_TX_IDX_NONCE] = "5";
   input[ARGS_TX_IDX_VALUE] = "10000000000000000000";
   input[ARGS_TX_IDX_RECEIVER] = "erd10536tc3s886yqxtln74u6mztuwl5gy9k9gp8fttxda0klgxg979srtg5wt";
   input[ARGS_TX_IDX_GAS_PRICE] = "1000000000";

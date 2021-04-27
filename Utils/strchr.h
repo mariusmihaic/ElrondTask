@@ -6,11 +6,11 @@
 
 namespace util
 {
-  inline std::string uCharToStr(unsigned char* chrBuffer, unsigned int const bufferSize)
+  inline std::string uCharToStr(unsigned char* chrBuffer, unsigned long long const bufferSize)
   {
     std::string ret;
 
-    for (auto currChar = 0; currChar < bufferSize; ++currChar)
+    for (unsigned int currChar = 0; currChar < bufferSize; ++currChar)
     {
       ret.push_back(chrBuffer[currChar]);
     }

@@ -60,7 +60,7 @@ namespace ih
     std::string const msgString = unsignedTransaction.dump();
     unsigned long long const msgLength = msgString.length();
 
-    unsigned char *msg = new unsigned char[msgLength + 1];
+    unsigned char *msg = new unsigned char[msgLength + 1ULL];
     std::strcpy((char*)msg, msgString.c_str());
 
     unsigned char sk[crypto_sign_SECRETKEYBYTES];
