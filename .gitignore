@@ -1,5 +1,6 @@
 .vs
 CMakeFiles
+CMakeCache
 Debug
 Win32
 *sln
