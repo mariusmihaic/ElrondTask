@@ -1,7 +1,7 @@
-#add_subdirectory(utils)
-
-#add_subdirectory(tests)
+add_subdirectory(Utils)
+add_subdirectory(InputHandler)
 
 add_executable(main main.cpp)
 
-#target_link_libraries(main PUBLIC extutil)
+target_link_libraries(main PUBLIC utils)
+target_link_libraries(main PUBLIC inputhandler)

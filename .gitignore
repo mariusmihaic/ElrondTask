@@ -1,4 +1,5 @@
 /.vs/ERDProject/v15
+.vs/
 /Debug
 ERDProject/Debug/
 InputHandler/Debug/
@@ -30,3 +31,15 @@ Debug/
 /tests/test1.vcxproj.filters
 /ZERO_CHECK.vcxproj
 /ZERO_CHECK.vcxproj.filters
+/src/Utils/utils.vcxproj
+/src/Utils/utils.vcxproj.filters
+/src/Utils/extutil.vcxproj
+/src/Utils/extutil.vcxproj.filters
+/src/Utils/INSTALL.vcxproj
+/src/Utils/INSTALL.vcxproj.filters
+/src/InputHandler/inputhandler.vcxproj
+/src/InputHandler/inputhandler.vcxproj.filters
+/src/InputHandler/INSTALL.vcxproj
+/src/InputHandler/INSTALL.vcxproj.filters
+/src/InputHandler/cmake_install.cmake
+/src/Utils/cmake_install.cmake

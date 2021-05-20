@@ -8,4 +8,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 project(ELROND)
 
 add_subdirectory(src)
-add_subdirectory(tests)
+#add_subdirectory(tests)
