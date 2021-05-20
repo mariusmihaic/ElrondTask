@@ -1,6 +1,8 @@
 .vs
 CMakeFiles
 Debug
+Win32
+*user
 *filters
 *vcxproj
 *cmake
