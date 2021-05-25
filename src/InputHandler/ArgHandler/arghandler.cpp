@@ -1,6 +1,31 @@
 #include "arghandler.h"
 #include <iostream>
+#include <stdint.h>
+#include <limits>
 
+
+namespace internal
+{
+    // Generic template function to check for user input value.
+    // Expects input to be an unsigned long int.
+    template<typename T>
+    bool isUserInputValid(std::string arg)
+    {
+        if ((arg.size() == 0) || (arg.size() > std::numeric_limits<uint64_t>::digits)) return false;
+
+        std::string::const_iterator it = arg.begin();
+        while (it != arg.end() && isdigit(*it)) ++it;
+        return  it == arg.end();
+    }
+
+    // Specialization template function to check for user input value.
+    // Expects input to be a non-empty string.
+    template<>
+    bool isUserInputValid<std::string>(std::string arg)
+    {
+        return (arg.size() != 0);
+    }
+}
 
 namespace ih
 {
@@ -57,21 +82,6 @@ namespace ih
     return (m_arguments[0] == arg);
   }
 
-  template<typename T>
-  bool ArgHandler::isUserInputValid(std::string arg) const
-  {
-    if ((arg.size() == 0) || (arg.size() > std::numeric_limits<uint64_t>::digits)) return false;
-
-    std::string::const_iterator it = arg.begin();
-    while (it != arg.end() && isdigit(*it)) ++it;
-    return  it == arg.end();
-  }
-
-  template<>
-  bool ArgHandler::isUserInputValid<std::string>(std::string arg) const
-  {
-    return (arg.size() != 0);
-  }
 
   template <typename T>
   bool ArgHandler::checkAndSetUserInput(uint32_t const argIdx, std::string const arg,
@@ -96,7 +106,7 @@ namespace ih
     if (isCmdValid)
     {
       std::string const userInput = userArg.substr(arg.size(), userArg.size());
-      if (isUserInputValid<T>(userInput))
+      if (internal::isUserInputValid<T>(userInput))
       {
         userInputs[userInputIdx] = userInput;
         ret = true;

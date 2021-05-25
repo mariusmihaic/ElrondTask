@@ -326,8 +326,8 @@ TEST(JsonHandler, writeOutputFile)
   input[ARGS_TX_IDX_GAS_PRICE] = "1000000000";
   input[ARGS_TX_IDX_GAS_LIMIT] = "50000";
   input[ARGS_TX_IDX_DATA] = "test";
-  input[ARGS_TX_IDX_PEM_INPUT_FILE] = "D:/ERD/ERDProject/testData/keys.pem";
-  input[ARGS_TX_IDX_JSON_OUT_FILE] = "D:/ERD/ERDProject/testData/outputJson.json";
+  input[ARGS_TX_IDX_PEM_INPUT_FILE] = "..//testData//keys.pem";
+  input[ARGS_TX_IDX_JSON_OUT_FILE] = "..//testData//outputJson.json";
 
   ih::wrapper::PemHandlerInputWrapper const pemWrapper(input);
   ih::wrapper::JsonHandlerInputWrapper const jsonWrapper(input);
@@ -340,7 +340,7 @@ TEST(JsonHandler, writeOutputFile)
 TEST(PemFileReader, printFileContent)
 {
   std::map<uint32_t, std::string> inputData;
-  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "D:/ERD/libsodium/ERDProject/testData/keys.pem";
+  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "..//testData//keys.pem";
   ih::wrapper::PemHandlerInputWrapper const pemWrapper(inputData);
   ih::PemFileHandler pemHandler(pemWrapper);
 
@@ -350,7 +350,7 @@ TEST(PemFileReader, printFileContent)
 TEST(PemFileReader, isPemFileValid_validFile)
 {
   std::map<uint32_t, std::string> inputData;
-  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "D:/ERD/libsodium/ERDProject/testData/keys.pem";
+  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "..//testData//keys.pem";
   ih::wrapper::PemHandlerInputWrapper const pemWrapper(inputData);
   ih::PemFileHandler pemHandler(pemWrapper);
 
@@ -360,7 +360,7 @@ TEST(PemFileReader, isPemFileValid_validFile)
 TEST(PemFileReader, isPemFileValid_invalidFileExtension)
 {
   std::map<uint32_t, std::string> inputData;
-  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "D:/ERD/libsodium/ERDProject/testData/keys.pme";
+  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "..//testData//keys.pme";
   ih::wrapper::PemHandlerInputWrapper const pemWrapper(inputData);
   ih::PemFileHandler pemHandler(pemWrapper);
 
@@ -370,7 +370,7 @@ TEST(PemFileReader, isPemFileValid_invalidFileExtension)
 TEST(PemFileReader, isPemFileValid_emptyFile)
 {
   std::map<uint32_t, std::string> inputData;
-  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "D:/ERD/libsodium/ERDProject/testData/keysEmptyFile.pem";
+  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "..//testData//keysEmptyFile.pem";
   ih::wrapper::PemHandlerInputWrapper const pemWrapper(inputData);
   ih::PemFileHandler pemHandler(pemWrapper);
 
@@ -380,7 +380,7 @@ TEST(PemFileReader, isPemFileValid_emptyFile)
 TEST(PemFileReader, getPublicPrivateKeys_expectSameResultFrom_libsodium)
 {
   std::map<uint32_t, std::string> inputData;
-  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "D:/ERD/libsodium/ERDProject/testData/keys.pem";
+  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "..//testData//keys.pem";
   ih::wrapper::PemHandlerInputWrapper const pemWrapper(inputData);
   ih::PemFileHandler pemHandler(pemWrapper);
 
@@ -411,7 +411,7 @@ TEST(PemFileReader, getPublicPrivateKeys_expectSameResultFrom_libsodium)
 TEST(PemFileReader, getSegwitAddress)
 {
   std::map<uint32_t, std::string> inputData;
-  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "D:/ERD/libsodium/ERDProject/testData/keys.pem";
+  inputData[ARGS_TX_IDX_PEM_INPUT_FILE] = "..//testData//keys.pem";
   ih::wrapper::PemHandlerInputWrapper const pemWrapper(inputData);
   ih::PemFileHandler pemHandler(pemWrapper);
 

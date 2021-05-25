@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "../Utils/params.h"
+#include "../../Utils/params.h"
 
 namespace ih
 {
@@ -58,16 +58,6 @@ namespace ih
     bool checkAndSetUserInput(uint32_t const argIdx, std::string const arg,
                               std::map<uint32_t,std::string>& userInputs, uint32_t userInputIdx,
                               errorCode errCode);
-
-    // Generic template function to check for user input value.
-    // Expects input to be an unsigned long int.
-    template<typename T>
-    bool isUserInputValid(std::string arg) const;
-
-    // Specialization template function to check for user input value.
-    // Expects input to be a non-empty string.
-    template<>
-    bool isUserInputValid<std::string>(std::string arg) const;
 
     void showSubGroupAvailableCmds(std::string cmdGroup) const;
 

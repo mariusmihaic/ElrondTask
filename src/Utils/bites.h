@@ -2,6 +2,7 @@
 #define BITES_H
 
 #include <vector>
+#include <stdint.h>
 
 namespace util
 {

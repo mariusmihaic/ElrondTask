@@ -1,4 +1,4 @@
-#include "IFileHandler.h"
+#include "ifilehandler.h"
 
 namespace ih
 {

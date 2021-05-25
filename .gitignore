@@ -1,6 +1,10 @@
 .vs
+.vscode
 CMakeFiles
-CMakeCache
+Makefile
+build
+Testing
+CMakeCache.txt
 Debug
 Win32
 *sln
@@ -8,3 +12,6 @@ Win32
 *filters
 *vcxproj
 *cmake
+*a
+*cbp
+*

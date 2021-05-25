@@ -1,6 +1,6 @@
-#include <sodium.h>
 #include <string>
 #include <iostream>
+#include <sodium.h>
 #include <vector>
 #include "InputHandler/ext.h"
 

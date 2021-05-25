@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "../IFileHandler/IFileHandler.h"
+#include "../IFileHandler/ifilehandler.h"
 #include "../InputWrappers/pemhandler_input_wrapper.h"
 
 namespace ih
