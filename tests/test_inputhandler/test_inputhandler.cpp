@@ -421,3 +421,4 @@ TEST(PemFileReader, getSegwitAddress)
   EXPECT_EQ(pemAddress, expectedAdr);
 }
 
+
